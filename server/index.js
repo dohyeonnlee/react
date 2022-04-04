@@ -1,11 +1,11 @@
 
 const express = require('express')
 const app = express()
-const port = 3000
+const port = 5000
 const config = require('./config/key');
 const { User } = require("./models/User");
 const { auth } = require("./middleware/auth");
-// const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 //application/x-www-form-urlencoded
@@ -20,13 +20,19 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())
 
 const mongoose = require('mongoose');
-const read = require('body-parser/lib/read');
+//const read = require('body-parser/lib/read');
 const { resetWatchers } = require('nodemon/lib/monitor/watch');
 mongoose.connect(config.mongoURI)
 .then(() => console.log('mongoDB Connected...'))
 .catch(err => console.log(err))
 
 app.get('/', (req, res) => res.send('Hello World!'))
+
+app.get('/api/hello', (req,res) => {
+  //받은다음에
+  
+  res.send('안녕하세여 ~')
+})
 
 app.post('/api/users/register', (req, res) => {
   //회원가입시 필요한 정보들을 client에서 가져오면
